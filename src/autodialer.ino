@@ -1,32 +1,37 @@
-#include <Adafruit_SSD1306.h>
-#include <splash.h>
 
 #include "DriverControl.h"
 
 uint8_t StepsPerDigit = 2;
+
+uint8_t StepsPerRev = 200;
 
 const uint8_t MinPos = 0;             //sets minimum dial value
 const uint8_t MaxPos = 99;            //sets maximum dial value
 
 uint8_t MicroStep = 0;                //Sets microstepping setting. 0:full, 1:1/2, 2:1/4, 3:1/8, 4:1/16
 
-uint8_t MoveSteps = 0;
+uint8_t MoveSteps = 0;                //Used for storing steps for next move
 
-uint8_t StepDelay = 700;
+uint8_t StepDelay = 700;              //Delay to use between step pulses in microseconds
 
-uint8_t Position = 0;
-uint8_t NextPos = 30;
+uint8_t Position = 0;                 //Current position
+uint8_t NextPos = 30;                 //next position to go to
 
-uint8_t DwellTime = 0;
+uint8_t DwellTime = 0;                //time to dwell at one postition
 
 uint8_t RunMode = 1;
 
-bool Open = false;
 
-volatile bool switchState = false;
+
+bool Open = false;                    
+
+volatile bool switchState = false;    //position switch state
 
 uint8_t findMove (uint8_t H, uint8_t T, uint8_t M, bool R) {
+  
+  //calculates move from current position to another position,
 
+  
   // H = Here
   // T = There
   // M = Max
@@ -117,12 +122,10 @@ bool checkOpen() {
 
 void Goto(uint8_t H, uint8_t T, uint8_t M, bool R){
 
-  uint8_t steps = findMove(H, T, M, R);
+  uint8_t move = findMove(H, T, M, R) * StepsPerDigit;
   
-  steps = steps * StepsPerDigit;
-
   setDir(R);
-  step(steps);
+  step(move);
 
   Position = T;
 
