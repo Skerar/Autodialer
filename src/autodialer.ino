@@ -3,7 +3,7 @@
 
 uint8_t StepsPerDigit = 2;
 
-uint8_t StepsPerRev = 200;
+//uint8_t StepsPerRev = 200;
 
 const uint8_t MinPos = 0;             //sets minimum dial value
 const uint8_t MaxPos = 99;            //sets maximum dial value
@@ -182,7 +182,7 @@ void setup() {
 
   pinMode(StepPin,OUTPUT);
   pinMode(DirPin,OUTPUT);
-  pinMode(LED_BUILTIN, OUTPUT);
+  //pinMode(LED_BUILTIN, OUTPUT);
   pinMode(EN, OUTPUT);
   pinMode(MS1, OUTPUT);
   pinMode(MS2, OUTPUT);
