@@ -46,11 +46,17 @@ uint8_t findMove (uint8_t H, uint8_t T, uint8_t M, bool R) {
 
     if (H > T) {
       move = (H - T);
+      
+      Serial.println("moving ccw " + move);
+
       return move;
     }
 
     else if (H < T) {
       move = (M - T + H);
+
+      Serial.println("moving ccw " + move);
+
       return move;
     }
 
@@ -60,11 +66,17 @@ uint8_t findMove (uint8_t H, uint8_t T, uint8_t M, bool R) {
 
     if (H > T) {
       move = (M - H + T);
+
+      Serial.println("moving cw " + move);
+
       return move;
     }
 
     else if (H < T) {
       move = (T - H);
+
+      Serial.println("moving cw " + move);
+
       return move;
     }
 
@@ -77,11 +89,15 @@ void dial(uint8_t g1_min, uint8_t g2_min, uint8_t g3_min, uint8_t g1_max, uint8_
 
     fullTurn(3, true);
 
+    Serial.println("Going to " + Position);
+
     Goto(Position, g1, MaxPos, true);
 
     fullTurn(2, false);
 
     for (uint8_t g2 = g2_min; g2 < g2_max; g2 = g2 + interval) {
+
+      Serial.println("Going to " + Position);
 
       Goto(Position, g2, MaxPos, false);
 
@@ -89,6 +105,8 @@ void dial(uint8_t g1_min, uint8_t g2_min, uint8_t g3_min, uint8_t g1_max, uint8_
 
       for (uint8_t g3 = g3_min; g3 < g3_max; g3 = g3 + interval) {
         
+        Serial.println("Going to " + Position);
+
         Goto(Position, g3, MaxPos, true);
         
         Open = checkOpen();
